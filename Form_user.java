@@ -10,10 +10,6 @@ import javax.swing.JOptionPane;
  * and open the template in the editor.
  */
 
-/**
- *
- * @author Sidiq
- */
 public class Form_user extends javax.swing.JInternalFrame {
     
     ResultSet rs;
