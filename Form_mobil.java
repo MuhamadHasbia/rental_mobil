@@ -4,18 +4,6 @@ import Database.ResultSetTable;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
-
-
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author Sidiq
- */
 public class Form_mobil extends javax.swing.JInternalFrame {
     
     ResultSet rs;
