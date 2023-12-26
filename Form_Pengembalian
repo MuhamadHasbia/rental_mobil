@@ -376,12 +376,7 @@ public class Form_Pengembalian extends javax.swing.JInternalFrame {
 
     }
 
-    public void hapus_transaksi() {
-        if (JOptionPane.showConfirmDialog(this, "Yakin Mengembalikan Mobil ?", "Peringatan", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
-            con.queryDelete("tb_transaksi", "nopol='" + boxnopol.getSelectedItem().toString() + "'");
-        }
 
-    }
 
     private void loadTabel() {
         String namaKolom[] = {"id_transaksi", "peminjam", "nopol", "tgl_pinjaman", "tgl_kembali", "harga", "lama", "total"}; //,
@@ -391,11 +386,6 @@ public class Form_Pengembalian extends javax.swing.JInternalFrame {
 
 
 
-public void cetak() {
-        try {
-            table_transaksi1.print(JTable.PrintMode.FIT_WIDTH, new MessageFormat("Data Transaksi"), null);
-        } catch (PrinterException ex) {
-            Logger.getLogger(Form_Transaksi.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
     }
 }
