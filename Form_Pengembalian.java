@@ -1,6 +1,7 @@
 import Database.KoneksiDatabase;
 import Database.ResultSetTable;
 import java.awt.print.PrinterException;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.MessageFormat;
@@ -9,19 +10,28 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import usu.widget.glass.PanelGlass;
+import javax.swing.table.DefaultTableModel;
 
 public class Form_Pengembalian extends javax.swing.JInternalFrame {
 
     ResultSet rs;
     KoneksiDatabase con;
     String status1;
+    DefaultTableModel model = new DefaultTableModel();
 
 
     public Form_Pengembalian() {
         initComponents();
+        table_transaksi1.setModel(model);
+        model.addColumn("Nama Peminjam");
+        model.addColumn("No Polisi");
+        model.addColumn("Harga");
+        model.addColumn("TGL Pinjam");
+        model.addColumn("TGL Kembali");
+        model.addColumn("Lama Pinjam");
+        model.addColumn("Total");
         con = new KoneksiDatabase(new Database.Parameter().HOST_DB, new Database.Parameter().USERNAME_DB, new Database.Parameter().PASSWORD_DB);
 
-        initComponents();
         loadTabel();
         loadMobil();
     }
@@ -408,14 +418,29 @@ public class Form_Pengembalian extends javax.swing.JInternalFrame {
         table_transaksi1.setModel(new ResultSetTable(rs)); //,"tgl_pinjam","tgl_kembali" ,jDateChooser1.getDateFormatString(),jDateChooser2.getDateFormatString()
     }
 
-    public void cetak() {
-        try {
-            panelGlass2.print(PanelGlass.PrintMode.FIT_WIDTH, new MessageFormat("Data Transaksi"), null);
-        } catch (PrinterException ex) {
-            Logger.getLogger(Form_Transaksi.class.getName()).log(Level.SEVERE, null, ex);
+private void loadTabel() {
+        model.getDataVector().removeAllElements();
+        model.fireTableDataChanged();
+        
+        try{
+            PreparedStatement ps = con.koneksiDatabase().prepareStatement("SELECT * FROM tb_transaksi");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                Object[] obj = new Object[7];
+                obj[0] = rs.getString("peminjam");
+                obj[1] = rs.getString("nopol");
+                obj[2] = rs.getString("harga");
+                obj[3] = rs.getString("tgl_pinjaman");
+                obj[4] = rs.getString("tgl_kembali");
+                obj[5] = rs.getString("lama");
+                obj[6] = rs.getString("total");
+                
+                model.addRow(obj);
+            }
+        }catch(SQLException e) {
+            e.printStackTrace();
         }
     }
-}
 
 public void cetak() {
         try {
