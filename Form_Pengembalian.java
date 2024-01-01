@@ -412,12 +412,6 @@ public class Form_Pengembalian extends javax.swing.JInternalFrame {
 
     }
 
-    private void loadTabel() {
-        String namaKolom[] = {"id_transaksi", "peminjam", "nopol", "tgl_pinjaman", "tgl_kembali", "harga", "lama", "total"}; //,
-        rs = con.querySelect(namaKolom, "tb_transaksi");
-        table_transaksi1.setModel(new ResultSetTable(rs)); //,"tgl_pinjam","tgl_kembali" ,jDateChooser1.getDateFormatString(),jDateChooser2.getDateFormatString()
-    }
-
 private void loadTabel() {
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged();
